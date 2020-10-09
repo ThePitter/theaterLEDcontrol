@@ -1,11 +1,14 @@
 import board
 import neopixel
 import subprocess
+import control_server
 
 subprocess.call("cd /home/pi/theaterLEDcontrol", shell=True)
 subprocess.call("git pull", shell=True)
 
 pixels = neopixel.NeoPixel(board.D18, 150)
+
+control_server.startServer()
 
 fade = 0
 movement = 1
