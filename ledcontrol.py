@@ -2,6 +2,7 @@ import board
 import neopixel
 import subprocess
 import control_server
+import lightpatterns
 
 subprocess.call("cd /home/pi/theaterLEDcontrol", shell=True)
 subprocess.call("git pull", shell=True)
@@ -10,20 +11,12 @@ pixels = neopixel.NeoPixel(board.D18, 150)
 
 control_server.startServer()
 
-fade = 0
-movement = 1
-motion = 0
+
+
+mode = "wave"
 
 while True:
-    fade += movement
-    motion += 1
-    
-    if (fade <= 0 or fade >= 100):
-        movement *= -1
-    if motion >= len(pixels):
-        motion = 0
-        
-    
-    pixels.fill((fade, fade, fade))
-    pixels[motion] = (0, 255, 0)
-    pixels.show()
+    if mode == "test":
+        lightpatterns.testpattern.play(pixels)
+    elif mode == "wave":
+        lightpatterns.wavepattern.play(pixels)
